@@ -1,0 +1,64 @@
+version : "3.8"
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:inception
+    build: requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - website:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - inception_network
+    restart: always
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:inception
+    build:
+      context: requirements/mariadb
+      args:
+        - DB_CLIENT=${DB_CLIENT}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${WP_ADMIN_USER}
+        - MYSQL_USER2=${MYSQL_USER2}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    networks:
+      - inception_network
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+
+  wordpress:
+    container_name: wordpress 
+    image: wordpress:inception
+    build: requirements/wordpress
+    volumes:
+      - website:/var/www/html/wordpress
+    depends_on:
+      - mariadb
+    networks:
+      - inception_network
+    restart: always
+    env_file: ./.env
+
+networks:
+  inception_network:
+
+
+volumes:
+  website:
+    driver_opts:
+      type: none
+      device: /home/omoudni/data/website
+      o: bind
+  database:
+    driver_opts:
+      type: none
+      device: /home/omoudni/data/database
+      o: bind
+

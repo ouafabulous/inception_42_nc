@@ -11,4 +11,10 @@ RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/ngin
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY tools/hello_there.html /var/www/index.html 
 
-CMD ["nginx", "-g", "daemon off;"]
+
+RUN adduser -D -g 'www' www && \
+	mkdir -p /run/nginx
+
+EXPOSE 443
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

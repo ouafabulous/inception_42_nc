@@ -25,6 +25,8 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 COPY ./conf/auto_config.sh /usr/bin/auto_config.sh
 RUN chmod 777 /usr/bin/auto_config.sh
-RUN /usr/bin/auto_config.sh
+RUN apk add --no-cache util-linux
 
-
+RUN whereis tail
+ENTRYPOINT [ "/usr/bin/auto_config.sh" ]
+CMD ["/usr/sbin/php-fpm81", "-F"]

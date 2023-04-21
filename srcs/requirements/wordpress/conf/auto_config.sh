@@ -1,6 +1,10 @@
+#!/bin/sh
+
 wp config create	--allow-root \
 	--dbname=$MYSQL_DATABASE \
-	--dbuser=$WP_ADMIN_USER \
-	--dbpass=$WP_ADMIN_PASSWORD \
-	--dbhost=mariadb:3306 --path='/var/www/html/wordpress'
+	--dbuser=$MYSQL_USER \
+	--dbpass=$MYSQL_PASSWORD \
+	--dbhost=$DB_HOST --path='/var/www/html/wordpress'
+	--force
 
+exec "$@"

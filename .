@@ -1,0 +1,25 @@
+# PROJECT SETUP
+COMPOSE_PROJECT_NAME=inception
+DOMAIN_NAME=omoudni.42.fr
+TITLE=inception
+
+DB_HOST=mariadb:3306
+DB_CLIENT=wordpress.inception_network
+
+# MYSQL SETUP
+MYSQL_PASSWORD=lolo
+MYSQL_ROOT_PASSWORD=lolo
+
+MYSQL_DATABASE=wp_inception
+
+MYSQL_USER=omoudni_admin
+MYSQL_USER2=omoudni_newbie
+DB_PASSWORD=lolo
+
+# WP USERS
+WP_ADMIN_USER=omoudni
+WP_USER=omoudni_user
+WP_ADMIN_PASSWORD=lolo
+WP_USER_PASSWORD=lolo
+WP_ADMIN_MAIL=omoudni@student.42.fr
+WP_USER_MAIL=user@student.42.fr
